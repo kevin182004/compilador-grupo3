@@ -1,0 +1,276 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> statement_list
+Rule 2     statement_list -> statement_list statement
+Rule 3     statement_list -> statement
+Rule 4     statement -> type ID EQUALS expression SEMI
+Rule 5     statement -> PRINT LPAREN ID RPAREN SEMI
+Rule 6     type -> INT
+Rule 7     type -> FLOAT
+Rule 8     expression -> expression PLUS expression
+Rule 9     expression -> expression MINUS expression
+Rule 10    expression -> NUMBER
+Rule 11    expression -> ID
+
+Terminals, with rules where they appear
+
+EQUALS               : 4
+FLOAT                : 7
+ID                   : 4 5 11
+INT                  : 6
+LPAREN               : 5
+MINUS                : 9
+NUMBER               : 10
+PLUS                 : 8
+PRINT                : 5
+RPAREN               : 5
+SEMI                 : 4 5
+error                : 
+
+Nonterminals, with rules where they appear
+
+expression           : 4 8 8 9 9
+program              : 0
+statement            : 2 3
+statement_list       : 1 2
+type                 : 4
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . statement_list
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . statement
+    (4) statement -> . type ID EQUALS expression SEMI
+    (5) statement -> . PRINT LPAREN ID RPAREN SEMI
+    (6) type -> . INT
+    (7) type -> . FLOAT
+
+    PRINT           shift and go to state 5
+    INT             shift and go to state 6
+    FLOAT           shift and go to state 7
+
+    program                        shift and go to state 1
+    statement_list                 shift and go to state 2
+    statement                      shift and go to state 3
+    type                           shift and go to state 4
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> statement_list .
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . type ID EQUALS expression SEMI
+    (5) statement -> . PRINT LPAREN ID RPAREN SEMI
+    (6) type -> . INT
+    (7) type -> . FLOAT
+
+    $end            reduce using rule 1 (program -> statement_list .)
+    PRINT           shift and go to state 5
+    INT             shift and go to state 6
+    FLOAT           shift and go to state 7
+
+    statement                      shift and go to state 8
+    type                           shift and go to state 4
+
+state 3
+
+    (3) statement_list -> statement .
+
+    PRINT           reduce using rule 3 (statement_list -> statement .)
+    INT             reduce using rule 3 (statement_list -> statement .)
+    FLOAT           reduce using rule 3 (statement_list -> statement .)
+    $end            reduce using rule 3 (statement_list -> statement .)
+
+
+state 4
+
+    (4) statement -> type . ID EQUALS expression SEMI
+
+    ID              shift and go to state 9
+
+
+state 5
+
+    (5) statement -> PRINT . LPAREN ID RPAREN SEMI
+
+    LPAREN          shift and go to state 10
+
+
+state 6
+
+    (6) type -> INT .
+
+    ID              reduce using rule 6 (type -> INT .)
+
+
+state 7
+
+    (7) type -> FLOAT .
+
+    ID              reduce using rule 7 (type -> FLOAT .)
+
+
+state 8
+
+    (2) statement_list -> statement_list statement .
+
+    PRINT           reduce using rule 2 (statement_list -> statement_list statement .)
+    INT             reduce using rule 2 (statement_list -> statement_list statement .)
+    FLOAT           reduce using rule 2 (statement_list -> statement_list statement .)
+    $end            reduce using rule 2 (statement_list -> statement_list statement .)
+
+
+state 9
+
+    (4) statement -> type ID . EQUALS expression SEMI
+
+    EQUALS          shift and go to state 11
+
+
+state 10
+
+    (5) statement -> PRINT LPAREN . ID RPAREN SEMI
+
+    ID              shift and go to state 12
+
+
+state 11
+
+    (4) statement -> type ID EQUALS . expression SEMI
+    (8) expression -> . expression PLUS expression
+    (9) expression -> . expression MINUS expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+
+    NUMBER          shift and go to state 15
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 14
+
+state 12
+
+    (5) statement -> PRINT LPAREN ID . RPAREN SEMI
+
+    RPAREN          shift and go to state 16
+
+
+state 13
+
+    (11) expression -> ID .
+
+    SEMI            reduce using rule 11 (expression -> ID .)
+    PLUS            reduce using rule 11 (expression -> ID .)
+    MINUS           reduce using rule 11 (expression -> ID .)
+
+
+state 14
+
+    (4) statement -> type ID EQUALS expression . SEMI
+    (8) expression -> expression . PLUS expression
+    (9) expression -> expression . MINUS expression
+
+    SEMI            shift and go to state 17
+    PLUS            shift and go to state 18
+    MINUS           shift and go to state 19
+
+
+state 15
+
+    (10) expression -> NUMBER .
+
+    SEMI            reduce using rule 10 (expression -> NUMBER .)
+    PLUS            reduce using rule 10 (expression -> NUMBER .)
+    MINUS           reduce using rule 10 (expression -> NUMBER .)
+
+
+state 16
+
+    (5) statement -> PRINT LPAREN ID RPAREN . SEMI
+
+    SEMI            shift and go to state 20
+
+
+state 17
+
+    (4) statement -> type ID EQUALS expression SEMI .
+
+    PRINT           reduce using rule 4 (statement -> type ID EQUALS expression SEMI .)
+    INT             reduce using rule 4 (statement -> type ID EQUALS expression SEMI .)
+    FLOAT           reduce using rule 4 (statement -> type ID EQUALS expression SEMI .)
+    $end            reduce using rule 4 (statement -> type ID EQUALS expression SEMI .)
+
+
+state 18
+
+    (8) expression -> expression PLUS . expression
+    (8) expression -> . expression PLUS expression
+    (9) expression -> . expression MINUS expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+
+    NUMBER          shift and go to state 15
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 21
+
+state 19
+
+    (9) expression -> expression MINUS . expression
+    (8) expression -> . expression PLUS expression
+    (9) expression -> . expression MINUS expression
+    (10) expression -> . NUMBER
+    (11) expression -> . ID
+
+    NUMBER          shift and go to state 15
+    ID              shift and go to state 13
+
+    expression                     shift and go to state 22
+
+state 20
+
+    (5) statement -> PRINT LPAREN ID RPAREN SEMI .
+
+    PRINT           reduce using rule 5 (statement -> PRINT LPAREN ID RPAREN SEMI .)
+    INT             reduce using rule 5 (statement -> PRINT LPAREN ID RPAREN SEMI .)
+    FLOAT           reduce using rule 5 (statement -> PRINT LPAREN ID RPAREN SEMI .)
+    $end            reduce using rule 5 (statement -> PRINT LPAREN ID RPAREN SEMI .)
+
+
+state 21
+
+    (8) expression -> expression PLUS expression .
+    (8) expression -> expression . PLUS expression
+    (9) expression -> expression . MINUS expression
+
+    SEMI            reduce using rule 8 (expression -> expression PLUS expression .)
+    PLUS            reduce using rule 8 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 8 (expression -> expression PLUS expression .)
+
+  ! PLUS            [ shift and go to state 18 ]
+  ! MINUS           [ shift and go to state 19 ]
+
+
+state 22
+
+    (9) expression -> expression MINUS expression .
+    (8) expression -> expression . PLUS expression
+    (9) expression -> expression . MINUS expression
+
+    SEMI            reduce using rule 9 (expression -> expression MINUS expression .)
+    PLUS            reduce using rule 9 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 9 (expression -> expression MINUS expression .)
+
+  ! PLUS            [ shift and go to state 18 ]
+  ! MINUS           [ shift and go to state 19 ]
+
